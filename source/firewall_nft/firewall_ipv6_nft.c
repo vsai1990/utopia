@@ -515,7 +515,7 @@ fprintf(fp, "add chain ip6 filter wan2lan\n");
    }
 #else
     //nft rules added
-fprintf(fp, "add chain ip filter %s\n", IPOE_HEALTHCHECK);
+fprintf(fp, "add chain ip6 filter %s\n", IPOE_HEALTHCHECK);
    fprintf(fp, "insert INPUT count  %s\n", IPOE_HEALTHCHECK);
 #endif //_RDKB_GLOBAL_PRODUCT_REQ_
 #endif //HUB4_BFD_FEATURE_ENABLED || IHC_FEATURE_ENABLED
@@ -523,8 +523,8 @@ fprintf(fp, "add chain ip filter %s\n", IPOE_HEALTHCHECK);
    //>>DOS
 #ifdef _COSA_INTEL_XB3_ARM_
    //nft rules added 
-   fprintf(fp, "add chain ip filter %s\n", "wandosattack");
-   fprintf(fp, "add chain ip filter %s\n", "mtadosattack");
+   fprintf(fp, "add chain ip6 filter %s\n", "wandosattack");
+   fprintf(fp, "add chain ip6 filter %s\n", "mtadosattack");
 #endif
    //<<DOS
 
@@ -721,7 +721,7 @@ fprintf(fp, "add chain ip filter %s\n", IPOE_HEALTHCHECK);
 #if defined(_CBR_PRODUCT_REQ_)
        if (isBridgeMode) {
            //TCCBR-2674 - Technicolor CBR Telnet port exposed to Public internet
-           fprintf(fp, "add rule ip6 filter ipINPUT iifname erouter0 tcp dport 23  counter drop\n" );
+           fprintf(fp, "add rule ip6 filter INPUT iifname erouter0 tcp dport 23  counter drop\n" );
        }
 #endif
 
@@ -1045,7 +1045,7 @@ fprintf(fp, "add rule ip6 filter INPUT iifname \"%s\" meta l4proto ipv6-icmp icm
    {
       // Remove burst limit on Hub4 IPv6 DNS requests
       fprintf(fp, "add rule ip6 filter INPUT iifname \"%s\" udp dport 53 counter accept\n", lan_ifname);
-      fprintf(fp, "-add rule ip6 filter INPUT iifname \"%s\" tcp dport 53 counter accept\n", lan_ifname);
+      fprintf(fp, "add rule ip6 filter INPUT iifname \"%s\" tcp dport 53 counter accept\n", lan_ifname);
       fprintf(fp, "add rule ip6 filter INPUT iifname != \"%s\" udp sport 53 counter accept\n", lan_ifname);
    }
    else
@@ -1546,7 +1546,7 @@ v6GPFirewallRuleNext:
            }
            else
            #endif
-				  fprintf(fp, "add rule ip6 filter wan2lan ip daddr %s counter accept\n", ipv6host);
+				  fprintf(fp, "add rule ip6 filter wan2lan ip6 daddr %s counter accept\n", ipv6host);
 			  }
 			}
 		}
@@ -2453,7 +2453,7 @@ int do_ipflooddetectv6(FILE *fp)
         fprintf(fp, "add rule ip6 filter DOS_ICMP_OTHER icmpv6 limit rate 5/second burst 60 return\n");
         fprintf(fp, "add rule ip6 filter DOS_ICMP_OTHER jump DOS_DROP\n");
         fprintf(fp, "add rule ip6 filter DOS_DROP drop\n");
-        fprintf(fp, "add rule ip6 filter DOS_FWD jump DO\n");
+        fprintf(fp, "add rule ip6 filter DOS_FWD jump DOS\n");
         fprintf(fp, "add rule ip6 filter FORWARD jump DOS_FWD\n");
         fprintf(fp, "add rule ip6 filter INPUT jump DOS\n");
     }

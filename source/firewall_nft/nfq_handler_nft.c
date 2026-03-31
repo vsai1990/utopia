@@ -199,7 +199,7 @@ void handle_dns_query(struct nfq_data *pkt)
             fclose(mac2Ip); /*RDKB-7144, CID-33078, free resource after use*/
         }
 #if _NFQ_DEBUG_LEVEL == 1
-        printf("\nsyncing ip address of deivce_%u\n", insNum);
+        printf("\nsyncing ip address of device_%u\n", insNum);
 #endif
         if((mac2Ip = fopen(mac, "w")) != NULL) /*RDKB-7144, CID-33323, free resource after use*/
         {

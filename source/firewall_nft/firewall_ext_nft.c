@@ -234,7 +234,7 @@ int prepare_ipv4_rule_ex_mode(FILE *raw_fp, FILE *mangle_fp, FILE *nat_fp, FILE 
    fprintf(filter_fp, "add rule ip filter INPUT iifname brlan112 ip daddr 169.254.70.0/24 counter accept\n");
    fprintf(filter_fp, "add rule ip filter INPUT iifname brlan112 pkttype != unicast counter accept\n");
    fprintf(filter_fp, "add rule ip filter INPUT iifname brlan113 ip daddr 169.254.71.0/24 counter accept\n");
-   fprintf(filter_fp, "add rule ip filter INPUT iifname brlan113 pkttype != unicast counter jump ACCEPT\n");
+   fprintf(filter_fp, "add rule ip filter INPUT iifname brlan113 pkttype != unicast counter jump accept\n");
    fprintf(filter_fp, "add rule ip filter INPUT iifname brebhaul ip daddr 169.254.85.0/24 counter accept\n");
    fprintf(filter_fp, "add rule ip filter INPUT iifname brebhaul pkttype != unicast counter accept\n");
 #endif
